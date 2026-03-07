@@ -4,6 +4,90 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Le Délice Sénégalais</title>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="style.js">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  </head>
+  <body>
+    <!--Développer le Header complet (image, overlay, titre, boutons CTA)-->
+    <header class="header" id="home">
+      <div class="header-overlay"></div>
+      <div class="cardtext-bg-dark">
+        <!-- Image de fond du header et ajout du texte sur l'image -->
+        <img
+          src="assets/images/Page_d'accueil.jpeg"
+          class="card-img"
+          alt="Image du restaurant"
+        />
+        <!-- Navbar -->
+        <nav class="navbar">
+          <div class="nav-container">
+            <div class="nav-logo">
+              <a href="#home" class="logo-link">
+                <span class="logo-ld">LD</span> Le Délice Sénégalais
+              </a>
+            </div>
+            
+            <!-- Menu Desktop -->
+            <ul class="nav-menu">
+              <li class="nav-item">
+                <a href="#home" class="nav-link">Accueil</a>
+              </li>
+              <li class="nav-item">
+                <a href="#menu" class="nav-link">Notre Menu</a>
+              </li>
+              <li class="nav-item">
+                <a href="#specials" class="nav-link">Offres spéciales</a>
+              </li>
+              <li class="nav-item">
+                <a href="#reservation" class="nav-link">Réservation</a>
+              </li>
+              <li class="nav-item">
+                <a href="#gallery" class="nav-link">Galerie</a>
+              </li>
+              <li class="nav-item">
+                <a href="#testimonials" class="nav-link">Témoignages</a>
+              </li>
+              <li class="nav-item">
+                <a href="#contact" class="nav-link">Contact</a>
+              </li>
+            </ul>
+
+            <!-- Hamburger Menu -->
+            <div class="hamburger">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </div>
+          </div>
+        </nav>
+        <div class="contenus_texte">
+          <h5 class="nom_restaurant" aria-label="Nom du restaurant">
+            Le Délice <br /><span style="color: #ffd700">Sénégalais</span>
+          </h5>
+          <div class="slogan_boutons">
+            <h1 class="slogan">
+              L'authenticité africaine sublimée par la haute gastronomie
+            </h1>
+            <div class="header-buttons">
+              <a href="#menu" class="btn btn-primary">Réserver une Table</a>
+              <a href="#reservation" class="btn btn-secondary"
+                >Commander maintenant</a
+              >
+              <div
+                class="mouse-container"
+                aria-label="Icône souris animée"
+                role="img"
+              >
+                <div class="mouse"><div class="wheel"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -183,6 +267,71 @@
       <div class="container"></div>
     </section>
 
+    <section id="gallery" class="section gallery">
+      <div class="container">
+        <h2 class="section-title">Notre Galerie</h2>
+
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="assets/images/Yassa Poisson .jpeg" alt="Plat Sénégalais 1" />
+          </div>
+
+          <div class="gallery-item">
+            <img src="assets/images/Yassa Poulet.jpeg" alt="Plat Sénégalais 2" />
+          </div>
+
+          <div class="gallery-item">
+            <img src="assets/images/Thiéboudienne.jpeg" alt="Plat Sénégalais 3" />
+          </div>
+
+          <div class="gallery-item">
+            <img src="assets/images/Poisson Braisé.jpeg" alt="Plat Sénégalais 4" />
+          </div>
+
+          <div class="gallery-item">
+            <img src="assets/images/Poulet DG.jpeg" alt="Plat Sénégalais 5" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/images/Pastels à la Viande.jpeg" alt="Plat Sénégalais 6" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/images/Pastels au Thon .jpeg" alt="Plat Sénégalais 6" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/images/Jollof Rice Royal.jpeg" alt="Plat Sénégalais 6" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/images/Mafé Agneau.jpeg" alt="Plat Sénégalais 6" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/images/Mafé Poulet.jpeg" alt="Plat Sénégalais 6" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/images/Crème de Bissap.jpeg" alt="Plat Sénégalais 6" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/images/Fruits de Saison.jpeg" alt="Plat Sénégalais 6" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/images/Chakery Vanille.jpeg" alt="Plat Sénégalais 6" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/images/Cocktail Maison.jpeg" alt="Plat Sénégalais 6" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/images/Bouye (Jus de Baobab).jpeg" alt="Plat Sénégalais 6" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/images/Jus de Bissap.jpeg" alt="Plat Sénégalais 6" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/images/Jus de Gingembre.jpeg" alt="Plat Sénégalais 6" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/images/Cocktail Maison.jpeg" alt="Plat Sénégalais 6" />
+          </div>
+        </div>
+      </div>
     <section id="gallery" class="section">
       <div class="container"></div>
     </section>
