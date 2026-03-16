@@ -1,112 +1,106 @@
-(function () {
-  // Elements principaux
-  const toggle = document.querySelector('.menu-toggle');
-  const nav = document.querySelector('.main-nav');
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ==========================================
+  // 1. MENU MOBILE (HAMBURGER)
+  // ==========================================
+  const hamburger = document.querySelector('.hamburger');
+  const navMenu = document.querySelector('.nav-menu');
   const navLinks = document.querySelectorAll('.nav-link');
-  const sections = document.querySelectorAll('section, main');
 
-  // Prévenir les erreurs si les éléments n'existent pas
-  if (!toggle || !nav) return;
+  if (hamburger && navMenu) {
+    // Ouvrir/Fermer le menu au clic sur le hamburger
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
 
-  // 1) Toggle du menu mobile
-  toggle.addEventListener('click', () => {
-    const open = nav.classList.toggle('active');
-    toggle.setAttribute('aria-expanded', String(open));
-  });
+    // Fermer le menu automatiquement quand on clique sur un lien
+    navLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+      });
+    });
+  }
 
-  // 2) Fermer le menu après clic sur un lien (mobile UX)
-  navLinks.forEach((link) => {
-    link.addEventListener('click', () => {
-      // Ne ferme que si le menu est ouvert (mobile)
-      if (nav.classList.contains('active')) {
-        nav.classList.remove('active');
-        toggle.setAttribute('aria-expanded', 'false');
+  // ==========================================
+  // 2. EFFET DE LA NAVBAR AU SCROLL (FOND SOMBRE)
+  // ==========================================
+  const navbar = document.querySelector('.navbar');
+  
+  if (navbar) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
       }
     });
-  });
+  }
 
-  // 3) Animation d'apparition des sections au scroll (intersection observer)
+  // ==========================================
+  // 3. APPARITION DYNAMIQUE DES SECTIONS (REVEAL)
+  // ==========================================
+  const sections = document.querySelectorAll('.section');
+  
   const appearOptions = {
     root: null,
     rootMargin: '0px',
-    threshold: 0.1
+    threshold: 0.15 // Déclenche l'animation quand 15% de la section est visible
   };
 
   const appearOnScroll = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
+        observer.unobserve(entry.target); // Arrête d'observer une fois apparu
       }
     });
   }, appearOptions);
 
   sections.forEach((sec) => {
-    if (sec.classList.contains('section-hidden')) {
-      // On ne déclenche que si la section est marquée comme cachée par défaut
-      appearOnScroll.observe(sec);
-    } else {
-      // Sinon, on peut aussi animer sans condition
-      appearOnScroll.observe(sec);
-    }
+    sec.classList.add('section-hidden'); // Cache la section au chargement (nécessite le CSS)
+    appearOnScroll.observe(sec);
   });
 
-  // 4) Progress de défilement (barre en haut)
-  const progressBar = document.createElement('div');
-  progressBar.style.position = 'fixed';
-  progressBar.style.top = '0';
-  progressBar.style.left = '0';
-  progressBar.style.height = '3px';
-  progressBar.style.background = 'var(--color-primary)';
-  progressBar.style.width = '0%';
-  progressBar.style.zIndex = '9999';
-  document.body.appendChild(progressBar);
-
-  const updateProgress = () => {
-    const scrolled = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = docHeight > 0 ? (scrolled / docHeight) * 100 : 0;
-    progressBar.style.width = pct + '%';
+  // ==========================================
+  // 4. ILLUMINATION DES LIENS AU SCROLL (SCROLL SPY)
+  // ==========================================
+  // On sélectionne le header (Accueil) et toutes les sections
+  const spySections = document.querySelectorAll('header, section'); 
+  
+  // On configure l'observateur pour déclencher le changement quand 
+  // la section atteint environ le milieu haut de l'écran
+  const spyOptions = {
+    root: null,
+    rootMargin: '-20% 0px -70% 0px', 
   };
 
-  window.addEventListener('scroll', updateProgress, { passive: true });
-  window.addEventListener('resize', updateProgress);
-  // Init
-  updateProgress();
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // On récupère l'ID de la section visible (ex: 'home', 'menu', 'contact')
+        const currentId = entry.target.getAttribute('id');
+        
+        // On retire la classe 'active' de TOUS les liens
+        navLinks.forEach((link) => {
+          link.classList.remove('active');
+        });
 
-  // 5) (Optionnel) Validation simple du formulaire de réservation
-  const form = document.querySelector('.reservation-form');
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      // Petite vérification côté client
-      const name = form.querySelector('#name');
-      const date = form.querySelector('#date');
-      const time = form.querySelector('#time');
-      const people = form.querySelector('#people');
-
-      let ok = true;
-        [name, date, time, people].forEach((el) => {
-        if (!el || !el.value || el.value.toString().trim() === '') ok = false;
-      });
-
-      if (!ok) {
-        e.preventDefault();
-        // Simple feedback
-        alert('Veuillez remplir tous les champs obligatoires du formulaire de réservation.');
+        // On cherche le lien qui correspond à l'ID et on lui ajoute 'active'
+        if (currentId) {
+          const activeLink = document.querySelector(`.nav-link[href="#${currentId}"]`);
+          if (activeLink) {
+            activeLink.classList.add('active');
+          }
+        }
       }
     });
-  }
+  }, spyOptions);
 
-  // 6) Petite physics-based parallax option pour le hero (optionnel)
-  // Si tu veux activer, décommenter ci-dessous
-  
-  const hero = document.querySelector('.hero');
-  if (hero) {
-    window.addEventListener('mousemove', (e) => {
-      const x = (e.clientX / window.innerWidth) - 0.5;
-      const y = (e.clientY / window.innerHeight) - 0.5;
-      hero.style.backgroundPosition = `calc(50% + ${x * 20}px) calc(50% + ${y * 10}px)`;
-    });
-  }
+  // On dit à l'observateur de surveiller chaque section
+  spySections.forEach((section) => {
+    sectionObserver.observe(section);
+  });
 
-})();
+});
